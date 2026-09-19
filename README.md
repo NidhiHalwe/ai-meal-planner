@@ -1,11 +1,9 @@
+# 🥗 NutriHub: AI-Powered Full-Stack Fitness & Nutrition Platform
 
-# 🥗 NutriHub: AI-Powered Nutrition & Meal Planning Platform
+NutriHub is a full-stack MERN web application designed to help users manage their nutrition and fitness goals through personalized meal planning, calorie tracking, macronutrient analysis, and AI-powered meal recommendations.
 
-NutriHub is a full-stack MERN application designed to help users manage their nutrition and fitness goals through personalized meal planning, calorie tracking, macronutrient analysis, and AI-powered meal recommendations.
+The application combines React, Node.js, Express.js, MongoDB, JWT-based authentication, and Google Gemini API with Docker-based containerization to provide a reproducible and maintainable development environment.
 
-The application combines a React frontend, Node.js/Express backend, MongoDB database, JWT-based authentication, and Google Gemini API to provide an interactive nutrition management experience.
-
----
 
 ## ✨ Features
 
@@ -16,68 +14,73 @@ The application combines a React frontend, Node.js/Express backend, MongoDB data
 
 - 🤖 **AI-Powered Meal Recommendations**
   - Uses Google Gemini API to generate personalized meal suggestions.
-  - Recommendations can be tailored according to calorie and nutrition requirements.
-
-- 📊 **Macronutrient Tracking**
-  - Track daily protein, carbohydrates, and fat intake.
-  - Calculate nutritional requirements based on user goals.
-
-- 🔐 **Secure User Authentication**
-  - JWT-based authentication.
-  - Password hashing using bcrypt.
-  - Protected API routes for authenticated users.
+  - Recommendations can be based on calorie targets and nutritional requirements.
 
 - 🧮 **BMR & Calorie Calculation**
   - Calculate Basal Metabolic Rate.
-  - Estimate calorie requirements based on user information and fitness goals.
+  - Estimate daily calorie requirements based on user information and activity level.
 
-- 🍽️ **Diet Logging**
-  - Add and manage consumed meals.
-  - Track nutritional values throughout the day.
+- 🍽️ **Meal & Diet Logging**
+  - Add and manage meals.
+  - Track nutritional information throughout the day.
 
-- 📱 **Responsive User Interface**
-  - Designed for desktop and mobile screens.
-  - Interactive and user-friendly nutrition dashboard.
+- 📊 **Macronutrient Tracking**
+  - Monitor protein, carbohydrates, and fat intake.
+  - Compare nutrition intake against configured goals.
 
-- 🔄 **RESTful Backend**
-  - Structured Express.js APIs.
-  - MongoDB persistence using Mongoose.
+- 🔐 **Secure Authentication**
+  - JWT-based authentication.
+  - Password hashing using bcrypt.
+  - Protected API routes.
+
+- 🔄 **RESTful API**
+  - Structured Express.js backend.
+  - Separation of routes, controllers, models, and services.
+
+- 🐳 **Docker Containerization**
+  - Docker configuration for reproducible application environments.
+  - Docker Compose support for running application services.
+
+- 📱 **Responsive Interface**
+  - Designed for desktop, tablet, and mobile screens.
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ System Architecture
+
+NutriHub follows a client-server architecture with separate frontend, backend, database, and AI service layers.
 
 ```text
                          ┌──────────────────────┐
-                         │       User           │
+                         │        User          │
+                         │      Browser         │
                          └──────────┬───────────┘
                                     │
                                     ▼
                          ┌──────────────────────┐
-                         │   React Frontend     │
-                         │                      │
-                         │ Dashboard / Meals    │
-                         │ Nutrition / Profile  │
+                         │   React + Vite       │
+                         │   Frontend           │
                          └──────────┬───────────┘
                                     │
-                              REST API
+                               REST API
                                     │
                                     ▼
                          ┌──────────────────────┐
-                         │ Node.js + Express    │
+                         │   Node.js + Express  │
+                         │   Backend API        │
                          │                      │
                          │ Authentication       │
                          │ Business Logic       │
-                         │ Nutrition APIs       │
+                         │ Nutrition Services   │
                          └───────┬───────┬──────┘
                                  │       │
                     ┌────────────┘       └─────────────┐
                     ▼                                  ▼
           ┌──────────────────┐               ┌──────────────────┐
-          │    MongoDB       │               │   Gemini API     │
-          │                  │               │                  │
-          │ Users / Meals    │               │ AI Meal          │
-          │ Nutrition Data   │               │ Recommendations  │
+          │     MongoDB      │               │   Google Gemini  │
+          │                  │               │       API        │
+          │ Users / Meals    │               │                  │
+          │ Nutrition Data   │               │ AI Recommendations│
           └──────────────────┘               └──────────────────┘
 ````
 
@@ -94,25 +97,25 @@ User Registration / Login
           ▼
    User Profile & Goals
           │
-          ├───────────────┐
-          ▼               ▼
-   Calorie / BMR       Nutrition Goals
-   Calculation              │
-          │                 │
-          └────────┬────────┘
-                   ▼
-             Meal Planning
-                   │
-          ┌────────┴─────────┐
-          ▼                  ▼
-     Manual Logging      AI Suggestions
-          │                  │
-          └────────┬─────────┘
-                   ▼
-          Daily Nutrition Data
-                   │
-                   ▼
-          Dashboard & Progress
+          ├───────────────────┐
+          ▼                   ▼
+   BMR / Calorie         Nutrition Goals
+   Calculation                 │
+          │                    │
+          └──────────┬─────────┘
+                     ▼
+                Meal Planning
+                     │
+            ┌────────┴─────────┐
+            ▼                  ▼
+       Meal Logging       AI Suggestions
+            │                  │
+            └────────┬─────────┘
+                     ▼
+            Daily Nutrition Data
+                     │
+                     ▼
+             Dashboard & Progress
 ```
 
 ---
@@ -147,12 +150,14 @@ User Registration / Login
 ### AI Integration
 
 * Google Gemini API
-* AI-powered meal recommendations
 
-### Development Tools
+### DevOps & Development
 
+* Docker
+* Docker Compose
 * Git
 * GitHub
+* GitHub Actions
 * Postman
 * VS Code
 * npm
@@ -188,15 +193,34 @@ NutriHub/
 │   ├── package.json
 │   └── .env.example
 │
-├── README.md
-└── .gitignore
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+│
+├── Dockerfile
+├── docker-compose.yml
+├── .dockerignore
+├── .gitignore
+└── README.md
 ```
 
 ---
 
-## 🚀 Getting Started
+# 🚀 Getting Started
 
-Follow the steps below to run NutriHub locally.
+## Prerequisites
+
+Make sure the following are installed:
+
+* Node.js 18+
+* npm
+* MongoDB or MongoDB Atlas
+* Git
+
+For Docker-based setup:
+
+* Docker
+* Docker Compose
 
 ---
 
@@ -209,21 +233,9 @@ cd Nutrihub
 
 ---
 
-## 2. Backend Setup
+# ⚙️ Environment Configuration
 
-Navigate to the backend directory:
-
-```bash
-cd backend
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Create a `.env` file inside the backend directory:
+Create a `.env` file inside the `backend` directory.
 
 ```env
 PORT=5000
@@ -232,26 +244,27 @@ JWT_SECRET=your_jwt_secret
 GEMINI_API_KEY=your_gemini_api_key
 ```
 
-Start the backend server:
+### Environment Variables
 
-```bash
-npm run dev
-```
+| Variable         | Description                      |
+| ---------------- | -------------------------------- |
+| `PORT`           | Port used by the Express backend |
+| `MONGO_URI`      | MongoDB connection string        |
+| `JWT_SECRET`     | Secret used to sign JWT tokens   |
+| `GEMINI_API_KEY` | Google Gemini API key            |
 
-The backend will run on:
-
-```text
-http://localhost:5000
-```
+> Never commit `.env` files or expose API credentials publicly.
 
 ---
 
-## 3. Frontend Setup
+# 💻 Manual Local Setup
 
-Open a new terminal and navigate to the frontend directory:
+## Backend
+
+Navigate to the backend directory:
 
 ```bash
-cd frontend
+cd backend
 ```
 
 Install dependencies:
@@ -266,7 +279,35 @@ Start the development server:
 npm run dev
 ```
 
-The frontend will run on:
+Backend:
+
+```text
+http://localhost:5000
+```
+
+---
+
+## Frontend
+
+Open a new terminal and navigate to the frontend directory:
+
+```bash
+cd frontend
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the Vite development server:
+
+```bash
+npm run dev
+```
+
+Frontend:
 
 ```text
 http://localhost:5173
@@ -274,22 +315,114 @@ http://localhost:5173
 
 ---
 
-## 🔐 Environment Variables
+# 🐳 Running with Docker
 
-The backend requires the following environment variables:
+NutriHub includes Docker configuration to provide a consistent and reproducible application environment.
 
-| Variable         | Description                     |
-| ---------------- | ------------------------------- |
-| `PORT`           | Port used by the Express server |
-| `MONGO_URI`      | MongoDB connection string       |
-| `JWT_SECRET`     | Secret used to sign JWT tokens  |
-| `GEMINI_API_KEY` | Google Gemini API key           |
+The repository includes:
 
-> Never commit `.env` files or expose API credentials publicly.
+* `Dockerfile`
+* `docker-compose.yml`
+* `.dockerignore`
+
+## Start the Application
+
+From the project root:
+
+```bash
+docker compose up --build
+```
+
+The configured services will be built and started.
+
+Application:
+
+```text
+Frontend:
+http://localhost:5173
+
+Backend API:
+http://localhost:5000
+```
 
 ---
 
-## 🔑 Authentication Flow
+## Run Containers in Background
+
+```bash
+docker compose up --build -d
+```
+
+---
+
+## Check Running Containers
+
+```bash
+docker compose ps
+```
+
+---
+
+## View Logs
+
+```bash
+docker compose logs -f
+```
+
+---
+
+## Stop the Application
+
+```bash
+docker compose down
+```
+
+---
+
+## Rebuild Containers
+
+```bash
+docker compose up --build
+```
+
+---
+
+## 🐳 Docker Architecture
+
+```text
+                    ┌──────────────────────┐
+                    │    User / Browser    │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │ Frontend Container   │
+                    │                      │
+                    │ React + Vite         │
+                    │ Port: 5173           │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │ Backend Container    │
+                    │                      │
+                    │ Node.js + Express    │
+                    │ Port: 5000           │
+                    └──────────┬───────────┘
+                               │
+                    ┌──────────┴───────────┐
+                    ▼                      ▼
+             ┌──────────────┐      ┌────────────────┐
+             │   MongoDB    │      │   Gemini API   │
+             │   Database   │      │  AI Services   │
+             └──────────────┘      └────────────────┘
+```
+
+Docker helps keep application dependencies and service configuration consistent across development environments.
+
+---
+
+# 🔑 Authentication Flow
 
 NutriHub uses JWT-based authentication.
 
@@ -309,27 +442,24 @@ Password Verification
 JWT Token Generated
  │
  ▼
-Client Stores Authentication State
- │
- ▼
-Protected API Requests
+Authenticated Request
  │
  ▼
 JWT Verification Middleware
  │
  ▼
-Authorized Request
+Protected API Access
 ```
 
 Passwords are hashed using bcrypt before being stored.
 
-Protected routes require a valid authentication token.
+Protected routes require valid authentication.
 
 ---
 
-## 🤖 AI Meal Recommendation Flow
+# 🤖 AI Integration
 
-NutriHub integrates Google Gemini to provide AI-powered meal recommendations.
+NutriHub integrates Google Gemini API for AI-assisted meal recommendations.
 
 ```text
 User Nutrition Goals
@@ -353,15 +483,15 @@ Backend Response
 React Nutrition Dashboard
 ```
 
-The AI layer is designed to assist users with meal ideas based on their nutritional requirements.
+The backend handles communication with the Gemini API so that API credentials are not exposed directly to the frontend.
 
 ---
 
-## 🧮 BMR & Calorie Calculation
+# 🧮 BMR & Calorie Calculation
 
-NutriHub includes a calorie and BMR calculation workflow that can help estimate a user's daily energy requirements.
+NutriHub includes a BMR and calorie estimation workflow.
 
-The calculation can consider factors such as:
+The calculation can consider:
 
 * Age
 * Height
@@ -369,13 +499,13 @@ The calculation can consider factors such as:
 * Activity level
 * Fitness goal
 
-The resulting calorie target can then be used by the meal-planning and nutrition-tracking features.
+The resulting calorie target can be used by the nutrition tracking and meal-planning features.
 
 ---
 
-## 📊 Nutrition Tracking
+# 📊 Nutrition Tracking
 
-Users can track important nutritional metrics including:
+Users can monitor important nutritional metrics including:
 
 ```text
 Daily Calories
@@ -385,13 +515,13 @@ Daily Calories
       └── Fats
 ```
 
-The dashboard provides an overview of nutrition progress against the user's goals.
+The application provides a dashboard for viewing nutrition progress against configured goals.
 
 ---
 
-## 🍽️ Meal Logging
+# 🍽️ Meal Logging
 
-Users can record meals and track their nutritional information.
+Users can record meals and track nutritional information.
 
 Example:
 
@@ -415,22 +545,18 @@ Dinner
  └── Fats
 ```
 
-This data can be used to understand daily nutrition intake and progress.
-
 ---
 
-## 🔌 API Architecture
+# 🔌 REST API Architecture
 
-The backend follows a RESTful API architecture.
-
-Typical API responsibilities include:
+The backend follows a RESTful API structure.
 
 ```text
 Authentication
       │
       ├── Register
       ├── Login
-      └── Protected User Routes
+      └── Protected Routes
 
 Nutrition
       │
@@ -443,19 +569,15 @@ AI
       └── Meal Recommendations
 ```
 
+The backend separates API responsibilities across routes, controllers, models, middleware, and services.
+
 ---
 
-## 🧪 Testing
+# 🧪 Testing
 
-The project can be tested using:
+NutriHub is designed to support automated and manual testing.
 
-* API testing with Postman
-* Backend unit tests
-* Integration tests
-* Frontend component tests
-* Manual user-flow testing
-
-Important areas to test include:
+Important testing areas include:
 
 * User registration
 * User login
@@ -463,25 +585,75 @@ Important areas to test include:
 * Protected routes
 * Meal creation
 * Nutrition calculations
+* API validation
 * AI API error handling
-* Invalid request handling
+* Database interactions
+
+If the corresponding scripts are configured in the project, tests can be executed using:
+
+```bash
+npm test
+```
+
+Coverage can be generated using:
+
+```bash
+npm run test:coverage
+```
+
+> Test and coverage commands should only be used when the corresponding testing configuration is present in the repository.
 
 ---
 
-## 🛡️ Security
+# 🔄 CI/CD
+
+The project includes GitHub Actions configuration for automated validation.
+
+Typical workflow:
+
+```text
+Push / Pull Request
+        │
+        ▼
+Install Dependencies
+        │
+        ▼
+Run Tests
+        │
+        ▼
+Generate Coverage
+        │
+        ▼
+Build Application
+        │
+        ▼
+CI Result
+```
+
+Workflow configuration:
+
+```text
+.github/workflows/ci.yml
+```
+
+---
+
+# 🛡️ Security
 
 NutriHub follows basic application security practices:
 
 * Passwords are hashed using bcrypt.
-* Authentication is handled using JWT.
+* Authentication uses JWT.
 * Protected routes validate authentication tokens.
-* API credentials are stored using environment variables.
-* Sensitive credentials are excluded from Git.
-* Backend validation is used for incoming requests.
+* API credentials are stored in environment variables.
+* `.env` files are excluded from Git.
+* Backend input validation is used where required.
+* Gemini API credentials are not exposed to the frontend.
+* Sensitive credentials should never be committed to GitHub.
 
 ---
 
-## ⚡ Error Handling
+# ⚡ Error Handling
 
 The backend handles common application failures such as:
 
@@ -493,11 +665,11 @@ The backend handles common application failures such as:
 * Missing environment variables
 * Unexpected server errors
 
-The goal is to provide meaningful responses without exposing sensitive implementation details.
+The goal is to provide meaningful API responses without exposing sensitive implementation details.
 
 ---
 
-## 📱 Responsive Design
+# 📱 Responsive Design
 
 NutriHub is designed to provide a consistent experience across:
 
@@ -506,11 +678,11 @@ NutriHub is designed to provide a consistent experience across:
 * Tablet
 * Mobile
 
-The interface focuses on simple navigation and clear presentation of nutrition information.
+The interface focuses on clear navigation and accessible presentation of nutrition information.
 
 ---
 
-## 🎯 Real-World Use Cases
+# 🎯 Real-World Use Cases
 
 NutriHub can be used for:
 
@@ -525,13 +697,11 @@ NutriHub can be used for:
 
 ---
 
-## 💡 Why NutriHub?
+# 💡 Why NutriHub?
 
-Managing nutrition manually often requires calculating calories, tracking macros, planning meals, and repeatedly searching for suitable food options.
+Managing nutrition manually can involve calculating calorie requirements, tracking macros, planning meals, and finding suitable food options.
 
-NutriHub brings these workflows together into a single application.
-
-The project combines:
+NutriHub brings these workflows together into a single full-stack application.
 
 ```text
 Nutrition Tracking
@@ -543,13 +713,15 @@ AI Assistance
 User Authentication
         +
 Data Persistence
+        +
+Dockerized Environment
         =
 NutriHub
 ```
 
 ---
 
-## 🧠 Engineering Concepts Demonstrated
+# 🧠 Engineering Concepts Demonstrated
 
 This project demonstrates practical software engineering concepts including:
 
@@ -568,31 +740,31 @@ This project demonstrates practical software engineering concepts including:
 * Error handling
 * Environment configuration
 * Responsive frontend development
+* Docker containerization
+* Docker Compose
 * Git/GitHub workflow
+* CI/CD with GitHub Actions
 
 ---
 
-## 🚧 Future Improvements
+# 🚧 Future Improvements
 
-Planned improvements include:
-
-* [ ] Automated unit and integration testing
-* [ ] Dockerized development environment
-* [ ] GitHub Actions CI/CD
+* [ ] Advanced unit and integration testing
+* [ ] Improved test coverage
 * [ ] Nutrition analytics dashboard
 * [ ] Weekly and monthly nutrition reports
-* [ ] More advanced meal recommendations
 * [ ] Food database integration
 * [ ] Meal recommendation history
 * [ ] Improved AI response validation
-* [ ] Automatic test coverage reporting
 * [ ] Performance optimization
 * [ ] Enhanced accessibility
 * [ ] Progressive Web App support
+* [ ] Production monitoring
+* [ ] Advanced CI/CD deployment pipeline
 
 ---
 
-## 📈 Future Vision
+# 📈 Future Vision
 
 The long-term goal of NutriHub is to evolve into a more intelligent nutrition management platform.
 
@@ -622,7 +794,7 @@ Future versions can use historical nutrition data to provide more personalized i
 
 ---
 
-## 🌟 Project Highlights
+# 🌟 Project Highlights
 
 ```text
 ✔ Full-Stack MERN Application
@@ -638,12 +810,16 @@ Future versions can use historical nutrition data to provide more personalized i
 ✔ Macronutrient Tracking
 ✔ Meal Logging
 ✔ Responsive UI
-✔ Real-World Nutrition Use Case
+✔ Docker Containerization
+✔ Docker Compose
+✔ Reproducible Development Environment
+✔ GitHub Actions CI/CD
+✔ Real-World Application
 ```
 
 ---
 
-## 👨‍💻 Author
+# 👨‍💻 Author
 
 **Nidhi Halwe**
 
@@ -651,20 +827,21 @@ Software Engineer | Full Stack Developer | AI Applications
 
 ---
 
-## 🔗 Repository
+# 🔗 Repository
 
-GitHub: [https://github.com/NidhiHalwe/Nutrihub](https://github.com/NidhiHalwe/Nutrihub)
+GitHub:
+
+[https://github.com/NidhiHalwe/Nutrihub](https://github.com/NidhiHalwe/Nutrihub)
 
 ---
 
-## ⭐ Support
+# ⭐ Support
 
 If you find NutriHub useful, consider giving the repository a ⭐ on GitHub.
 
 ---
 
-## 📄 License
+# 📄 License
 
 This project is available for educational and development purposes.
-
 
