@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: nutrihub-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nutrihub-backend
+    restart: unless-stopped
+    environment:
+      PORT: "5000"
+      MONGO_URI: "mongodb://mongo:27017/nutrihub"
+      JWT_SECRET: "docker-dev-secret"
+      GEMINI_API_KEY: "${GEMINI_API_KEY:-}"
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+
+  frontend:
+    image: node:20-alpine
+    container_name: nutrihub-frontend
+    working_dir: /app
+    command: sh -lc "npm install --prefix frontend/frontend && npm --prefix frontend/frontend run dev -- --host 0.0.0.0"
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    volumes:
+      - .:/app
+
+volumes:
+  mongo_data:

@@ -1,0 +1,17 @@
+{
+  "name": "nutrihub",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix backend run dev",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend/frontend run dev",
+    "build": "npm --prefix frontend/frontend run build",
+    "test": "npm --prefix backend run test && npm --prefix frontend/frontend run test",
+    "test:frontend": "npm --prefix frontend/frontend run test",
+    "test:backend": "npm --prefix backend run test",
+    "test:coverage": "npm --prefix backend run test:coverage && npm --prefix frontend/frontend run test:coverage",
+    "lint": "npm --prefix frontend/frontend run lint && npm --prefix backend run lint",
+    "doctor": "node ./scripts/doctor.js"
+  }
+}
